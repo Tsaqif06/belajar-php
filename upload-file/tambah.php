@@ -4,6 +4,7 @@ require './functions.php';
 // cek tombol submit ditekan atau tidak
 $submitted = false;
 if(isset($_POST["submit"])) {
+
     // cek apakah data berhasil atau tidak
     if(tambah($_POST) > 0) {
         $submitted = true;
@@ -18,10 +19,15 @@ if(isset($_POST["submit"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Data</title>
+    <style>
+        input[type='file'] {
+            color: transparent;
+        }
+    </style>
 </head>
 <body>
     <h1>Tambah Data</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <table>
             <tr>
                 <td><label for="nama">Nama</label></td>
@@ -41,7 +47,7 @@ if(isset($_POST["submit"])) {
             </tr>
             <tr>
                 <td><label for="gambar">Gambar</label></td>
-                <td><input type="teks" id="gambar" name="gambar" required></td>
+                <td><input type="file" id="gambar" name="gambar" accept="image/*" required></td>
             </tr>
         </table>
         <br>
@@ -57,5 +63,15 @@ if(isset($_POST["submit"])) {
         </p>
         <a href="./index.php">Kembali</a>
     </form>
+
+    <script>
+        const inputGambar = document.getElementById('gambar');
+
+        inputGambar.addEventListener('click', () => {
+            setTimeout(() => {
+                inputGambar.style.color = 'black';
+            }, 2000)
+        })
+    </script>
 </body>
 </html>

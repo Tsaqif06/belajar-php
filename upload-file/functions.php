@@ -21,14 +21,76 @@ function tambah ($data) {
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
     $jurusan = htmlspecialchars($data["jurusan"]);
-    $gambar = htmlspecialchars($data["gambar"]);
-
+    
+    // upload gambar
+    $gambar = upload();
+    if(!$gambar) {
+        return false;
+    }
 
     $query = "INSERT INTO mahasiswa VALUES (
             '', '$nama', '$nrp', '$email', '$jurusan', '$gambar'
             )";
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
+}
+
+function upload () {
+    $namaFile = $_FILES["gambar"]["name"];
+    $ukuranFile = $_FILES["gambar"]["size"];
+    $error = $_FILES["gambar"]["error"];
+    $tmpName = $_FILES["gambar"]["tmp_name"];
+
+    
+
+    // cek gambar diupload atau tidak
+
+    if($error === 4) {
+        echo 
+        '
+            <script>
+                alert("Silahkan Upload Gambar")
+            </script>
+        ';
+        return false;
+    }
+
+    // cek ekstensi file
+
+    $ekstensiGambar = explode('.', $namaFile); // seperti split() di js
+    $ekstensiGambar = strtolower(end($ekstensiGambar)); // strtolower() = string to lowercase, end() = mengambil index terakhir array
+    // if (!in_array($ekstensiGambar, $ekstensiValid)) {
+    //     echo 
+    //     '
+    //         <script>
+    //             alert("Hanya Gambar Yang Diperbolehkan")
+    //         </script>
+    //     ';
+    //     return false;
+    // }
+    
+    // cek ukuran
+
+    if ($ukuranFile > 1000000) {
+        echo 
+        '
+            <script>
+                alert("Ukuran File Terlalu Besar")
+            </script>
+        ';
+        return false;
+    }
+
+    // lolos pengecekan
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= ".";
+    $namaFileBaru .= $ekstensiGambar;
+
+
+    move_uploaded_file($tmpName, './img/'. $namaFileBaru);
+
+    return $namaFileBaru;
 }
 
 
@@ -48,7 +110,10 @@ function ubah ($data) {
     $nrp = htmlspecialchars($data["nrp"]);
     $email = htmlspecialchars($data["email"]);
     $jurusan = htmlspecialchars($data["jurusan"]);
-    $gambar = htmlspecialchars($data["gambar"]);
+    $gambar = upload();
+    if (!$gambar) {
+        return false;
+    }
     
     $query = "UPDATE mahasiswa SET
                 nama = '$nama',
