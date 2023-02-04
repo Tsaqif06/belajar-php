@@ -1,10 +1,26 @@
 <?php
 session_start();
+require './functions.php';
+
+// cek cookie
+if (isset($_COOKIE["userID"]) && isset($_COOKIE["key"])) {
+    $id = $_COOKIE["userID"];
+    $key = $_COOKIE["key"];
+
+    // ambil username berdasarkan id
+    $result = mysqli_query($conn, "SELECT username FROM users WHERE id = '$id'");
+    $row = mysqli_fetch_assoc($result);
+
+    // cek cookie dan username
+    if ($key ===  hash("sha256", $row["username"])) {
+        $_SESSION["login"] = true;
+    }
+}
+
 if (isset($_SESSION["login"])) {
     header("Location: ./index.php");
     exit;
 }
-require './functions.php';
 if (isset($_POST["login"]))  {
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -17,6 +33,12 @@ if (isset($_POST["login"]))  {
         if (password_verify($password, $row["password"])) {
             // set session
             $_SESSION["login"] = true;
+            
+            // set cookie
+            if (isset($_POST["remember"])) {
+                setcookie("userID", $row["id"], time() + 60);
+                setcookie("key", hash("sha256", $row['username']), time() + 60);
+            }
 
             header("Location: ./index.php");
             exit;
@@ -57,6 +79,9 @@ if (isset($_POST["login"]))  {
             <td><input type="password" name="password" id="password"></td>
         </tr>
     </table>
+    <br>
+    <input type="checkbox" name="remember" id="remember">
+    <label for="remember">Remember Me</label>
     <br>
     <button type="submit" name="login" id="login">Login</button>
     <p>Belum Punya Akun? <a href="./registrasi.php">Registrasi</a></p>
