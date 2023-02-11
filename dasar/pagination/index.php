@@ -27,9 +27,8 @@ if (isset($_POST["cari"])) {
 }
 
 if (isset($_POST["reset"])) {
-    session_unset();
-    // session_destroy();
-    header("Refresh: 0");
+    $cari = "";
+    $mahasiswa = cari($cari);
 }
 ?>
 <!DOCTYPE html>
