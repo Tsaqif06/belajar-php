@@ -17,6 +17,7 @@ if(isset($_POST["submit"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <?php if(isset($error)) :?>
      <h1>Nama dan Password Salah!</h1>
