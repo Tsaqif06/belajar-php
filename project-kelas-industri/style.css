@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap");
+
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #1a1a1a;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--blue);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #0d0d0d;
+}
+
+*,
+html,
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Josefin Sans", Arial, Helvetica, sans-serif;
+	outline: 0;
+	text-decoration: none;
+	border: none;
+	text-transform: capitalize;
+	transition: all 0.2s linear;
+	list-style: none;
+	color: #eaeaea;
+}
+
+body {
+	min-height: 100vh;
+	width: 100%;
+	background: #262626;
+	position: relative;
+	padding-left: 340px;
+}
+
+nav {
+	width: 340px;
+	height: 100vh;
+	background-color: #080808;
+	z-index: 99;
+    top: 0;
+	left: 0;
+	position: fixed;
+}
+
+nav .cta-list .list-head {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+nav .cta-list .list-head p {
+	margin: 10px 0 0 20px;
+}
+
+nav .cta-item {
+	margin-top: 60px;
+	text-align: center;
+	cursor: pointer;
+}
+
+nav .cta-item .list-item {
+	background-color: #1a1a1a;
+	width: 100%;
+	padding: 15px 20px 5px 0;
+	margin: 40px 0;
+}
+
+nav .cta-item .list-item:hover {
+	background-color: #0d0d0d;
+}
+
+nav .info {
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	padding-top: 30px;
+	border-top: 1px solid #eaeaea;
+}
+
+nav .info p {
+	font-size: 0.8em;
+}
+
+nav .info .alamat {
+	width: 100px;
+}
+
+nav .info .telepon {
+	width: 100px;
+}
+
+nav .info .email {
+	width: 126px;
+	word-wrap: break-word;
+}
+
+#menu {
+	position: fixed;
+	top: 2rem;
+	right: 2rem;
+	background-color: #080808;
+	color: #eaeaea;
+	cursor: pointer;
+	font-size: 1.6rem;
+	padding: 1rem 1.2rem;
+	width: 60px;
+	z-index: 99;
+	display: none;
+}
+
+#home {
+	width: 100%;
+	padding-bottom: 10px;
+}
+
+#home .hero {
+	background: url("./img/hero.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 120px -200px;
+	background-attachment: fixed;
+	width: 100%;
+	height: 300px;
+}
+
+#home .desc {
+	margin-top: 30px;
+}
+
+#home .desc h3 {
+	text-align: center;
+}
+
+#home .desc .desc-p {
+	padding: 10px 80px;
+}
+
+#home .desc .desc-p p {
+	text-align: justify;
+}
+
+#home .link-daftar {
+	padding: 15px 10px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@media screen and (max-width: 991px) {
+	#menu {
+		display: block;
+	}
+
+	nav {
+		left: -120%;
+	}
+
+	.toggle {
+		left: 0;
+	}
+}

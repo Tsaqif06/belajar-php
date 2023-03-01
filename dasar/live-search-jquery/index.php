@@ -8,7 +8,7 @@ require './functions.php';
 $mahasiswa = query("SELECT * FROM mahasiswa");
 
 // jika tombol cari di submit
-if(isset($_POST["cari"])) {
+if (isset($_POST["cari"])) {
     $keyword = $_POST["keyword"];
     $mahasiswa = cari($keyword);
     $style = "";
@@ -27,7 +27,10 @@ if (isset($_POST["reset"])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en"></html>
+<html lang="en">
+
+</html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,13 +38,26 @@ if (isset($_POST["reset"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Belajar Database</title>
     <style>
-        table, tr, th, td {
+        table,
+        tr,
+        th,
+        td {
             border-collapse: collapse;
             padding: 15px;
             border: 1px solid black;
         }
+
+        .loader {
+            width: 100px;
+            position: absolute;
+            top: 145px;
+            display: none;
+        }
     </style>
+    <script src="./js/jquery-3.6.3.min.js"></script>
+    <script src="./js/script.js"></script>
 </head>
+
 <body>
     <button id="logout">Logout</button>
     <h1>Daftar Mahasiswa</h1>
@@ -51,14 +67,15 @@ if (isset($_POST["reset"])) {
         <input type="text" id="keyword" name="keyword" size="40" placeholder="Cari disini..." autofocus autocomplete="off">
         <button type="submit" id="cari" name="cari">Cari!</button>
         <button type="submit" id="reset" name="reset">Reset</button>
+        <img src="./img/loader.gif" alt="loading" class="loader">
     </form>
     <br><br>
-    <?php if (isset($notFound)) :?>
-        <?= 
-            "<p>Data Tidak Ditemukan</p>"    
+    <?php if (isset($notFound)) : ?>
+        <?=
+        "<p>Data Tidak Ditemukan</p>"
         ?>
-    <?php endif;?>
-    
+    <?php endif; ?>
+
     <div class="container-data" id="cta">
         <table <?= @$style ?>>
             <tr>
@@ -71,24 +88,24 @@ if (isset($_POST["reset"])) {
                 <th>Jurusan</th>
             </tr>
 
-            <?php $i = 1;?>
-            <?php foreach($mahasiswa as $row) :?>
-            <tr>
-                <td><?= $i?></td>
-                <td>
-                    <a href="./ubah.php?id=<?= $row["id"]?>">ubah</a> |
-                    <a href="./hapus.php?id=<?= $row["id"]?>" onclick="return confirm('Yakin?');">hapus</a>
-                </td>
-                <td><img src="./img/<?= $row["gambar"]?>" width="65"></td>
-                <td><?= $row["nrp"]?></td>
-                <td><?= $row["nama"]?></td>
-                <td><?= $row["email"]?></td>
-                <td><?= $row["jurusan"]?></td>
-            </tr>
-            <?php $i++;?>
-            <?php endforeach;?>
+            <?php $i = 1; ?>
+            <?php foreach ($mahasiswa as $row) : ?>
+                <tr>
+                    <td><?= $i ?></td>
+                    <td>
+                        <a href="./ubah.php?id=<?= $row["id"] ?>">ubah</a> |
+                        <a href="./hapus.php?id=<?= $row["id"] ?>" onclick="return confirm('Yakin?');">hapus</a>
+                    </td>
+                    <td><img src="./img/<?= $row["gambar"] ?>" width="65"></td>
+                    <td><?= $row["nrp"] ?></td>
+                    <td><?= $row["nama"] ?></td>
+                    <td><?= $row["email"] ?></td>
+                    <td><?= $row["jurusan"] ?></td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach; ?>
         </table>
     </div>
-    <script src="./js/script.js"></script>
 </body>
+
 </html>
